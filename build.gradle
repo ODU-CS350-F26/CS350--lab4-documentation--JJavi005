@@ -32,3 +32,34 @@ application { //Allows  ./gradlew run --args=path-to-test-data
     mainClass = 'edu.odu.cs.MostCommonWords'
 }
 
+tasks.register('copyDocs', Copy) {
+    dependsOn(javadoc)
+
+    from(layout.buildDirectory.dir('docs'))
+    into(layout.buildDirectory.dir('reports'))
+}
+
+tasks.register ('reports', Copy) {
+    dependsOn(build, copyDocs)
+
+    from('src/main/html')
+    into(layout.buildDirectory.dir('reports'))
+}
+
+gitPublish {
+    repoUri = 'git@github.com:ODU-CS350-F26/CS350--lab4-documentation--JJavi005.git'
+    branch = 'gh-pages'
+    contents {
+        from(layout.buildDirectory.dir('reports'))
+    }
+}
+
+tasks.register('deployReports') {
+    dependsOn('reports')
+    finalizedBy('gitPublishPush')
+}
+
+tasks.named('gitPublishCopy') {
+    dependsOn('reports')
+}
+
