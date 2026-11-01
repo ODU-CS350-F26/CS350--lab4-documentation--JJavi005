@@ -1,4 +1,4 @@
-* [Reports](https://odu-cs350-f26.github.io/CS350--lab4-documentation--JJavi005/)
+* [Reports](https://odu-cs350-f26.github.io/CS350--lab4-documentation--JJavi005/) 
 
 # WordCounter
 
